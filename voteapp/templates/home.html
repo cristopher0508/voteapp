@@ -1,0 +1,489 @@
+{% extends 'partials/partial-home.html' %}
+
+{% block home %}
+
+{% load custom_tags %}
+
+<div class="container-home">
+    <div class="content-votes">
+        <div class="notification">
+            <h3 class="notification-h3">Notifications</h3>
+            
+            <button current-count="{{notifications.count}}" id="button-notf"><span class="fa-regular fa-bell" ></span></button>
+            
+        </div>
+
+        <div class="container-notification">
+            {% for notification in notifications %}
+
+
+    {% if notification.notification_type == 1 %}
+    <a href="{% url 'follow-notification' notification.id notification.from_user_id %}">
+       <div class="notification-item">
+           <img src="{{notification.from_user.picture.url}}" alt="">
+           <h4>{{notification.from_user.name}}</h4>
+           <br>
+           
+           <p>Te sigue ahora</p>
+       </div>
+       </a>
+   {% endif %}
+
+
+   {% if notification.notification_type == 2 %}
+   <a href="{% url 'vote-notification' notification.id notification.vote_id %}">
+      <div class="notification-item">
+        <img src="{{notification.from_user.picture.url}}" alt="">
+          <h4>{{notification.from_user.name}}</h4>
+          <p>Ha hecho un voto</p>
+      </div>
+      </a>
+  {% endif %}
+
+
+  {% if notification.notification_type == 3 %}
+  <a href="{% url 'vote-notification' notification.id notification.vote_id %}">
+     <div class="notification-item">
+        <img src="{{notification.from_user.picture.url}}" alt="">
+         <h4>{{notification.from_user.name}}</h4>
+         <p>Ha hecho un voto</p>
+     </div>
+     </a>
+ {% endif %}
+
+
+    {% endfor %}
+
+        </div>
+        
+        <div class="search-users">
+            <h2>Encuentra usuarios Aqui <a href="{% url 'all-votes' %}"><span class="fa-solid fa-users"></span></a></h2>
+        </div>
+        {% for vote in votes %}
+        <div class="vote-div">
+            <div class="div-name-img">
+                <img src="{{vote.author.picture.url}}" alt="">
+                <a href="{% url 'profile' vote.author.user_id %}" style="text-decoration: none; color: black;"><h3>{{vote.author.name}}</h3></a>
+                <a href="{% url 'vote-detail' vote.id %}" style="float: right;
+                text-decoration: none;
+                margin-top: 5px;
+                margin-right: 5px;
+                "><h4>Ver Post</h4></a>
+            </div>
+            <h2>{{vote.title}}</h2>
+            <form action="{% url 'add-vote' vote.id %}" method="POST" class="form-1">
+                {% csrf_token %}
+                <div class="boton-1">
+                <label>
+                <input type="hidden" name="img" value="{{request.path}}" id="img">
+                <button type="submit" class="img-f"><img src="{{vote.first_image.url}}" alt=""></button>
+                </label>
+                <strong class="strong-1" onclick="AbrirLikes()">{{vote.vote_image_first.all.count}}</strong>
+                </div>
+                </form>
+             
+            <form action="{% url 'add-vote-two' vote.id %}" method="post" class="form-2">
+                {% csrf_token %}
+                <div class="boton-2">
+                <label>  
+                <input type="hidden" name="imgs" value="{{request.path}}"> 
+               <button type="submit" class="img-s"><img src="{{vote.second_image.url}}" alt=""></button>
+                </label>
+                <strong class="strong-2">{{vote.vote_image_second.all.count}}</strong>
+                </div>
+            </form>
+           
+        </div>
+    
+        {% endfor %}
+
+    </div>
+
+</div>
+
+
+<style>
+    .container-home{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .content-votes{
+        width: 900px;
+        border-radius: 10px;
+        height: 100%;
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        
+        
+    }
+
+    .notification{
+        width: 500px;
+        height: 40px;
+        border: 1px solid #2CAFFE;
+        margin-top: 10px;
+    }
+
+ 
+
+    .notification h3{
+        display: inline;
+        float: left;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin-top: 5px;
+        margin-left: 10px;
+        letter-spacing: 1px;
+    }
+
+    .notification button{
+        font-size: 20px;
+        float: right;
+        border-radius: 100%;
+        width: 30px;
+        height: 30px;
+        margin-top: 5px;
+        margin-right: 10px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .notification button::after{
+        content: attr(current-count);
+        
+        
+    }
+
+    .container-notification{
+        width: 500px;
+        position: absolute;
+        max-height: 500px;
+        border: 1px solid lightskyblue;
+        margin-top: 60px;
+        background: white;
+        display: none;
+        overflow-y: auto;
+    }
+    .container-notification a{
+        color: black;
+        text-decoration: none;
+
+    }
+
+    .notification-item{
+        width: 100%;
+        height: 40px;
+       
+        margin-top: 20px;
+        cursor: pointer;
+    }
+
+    .notification-item img{
+        float: left;
+        width: 25px;
+        height: 25px;
+        border-radius: 100%;
+        margin-left: 5px;
+    }
+
+    .notification-item h4{
+        display: inline;
+        margin-left: 10px;
+        float: left;
+    }
+
+    .notification-item p{
+        margin-left: 10px;
+        float: left;
+        display: inline;
+    }
+
+    
+
+    .vote-div{
+        width: 500px;
+        height: 550px;
+        max-height: 700px;
+        border: 1px solid lightgray;
+        margin-top: 20px;
+        
+    }
+
+    .div-name-img{
+        height: 40px;
+        border-bottom: 1px solid lightgray;
+        width: 100%;
+    }
+
+    .div-name-img img{
+        float: left;
+        margin-top: 5px;
+        margin-left: 5px;
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+    }
+
+    .div-name-img h3{
+        display: inline;
+        float: left;
+        margin-top: 5px;
+        margin-left: 5px;
+    }
+
+    .vote-div h2{
+        text-align: center;
+        font-family: monospace;
+        margin-top: 5px;
+
+    }
+
+    .vote-div .img-f{
+        width: 225px;
+        max-width: 225px;
+        height: 400px;
+        display: inline;
+        float: left;
+    }
+
+    .img-f img {
+        width: 100%;
+        height: 100%;
+        display: inline;
+        
+    }
+
+    .img-s{
+        width: 225px;
+        max-width: 225px;
+        height: 400px;
+        display: inline;
+        float: right;
+    }
+
+    .img-s img{
+        width: 100%;
+        height: 100%;
+        display: inline;
+    }
+
+    .form-1{
+        margin-top: 10px;
+        width: 225px;
+        display: inline;
+        
+    }
+
+    .strong-1{
+        float: left;
+        font-size: 25px;
+        margin-left: 10px;
+        margin-top: 10px;
+        
+    }
+
+    .strong-2{
+        float: right;
+        font-size: 25px;
+        margin-top: 10px;
+        margin-right: 10px;
+    }
+
+    .boton-1{
+        width: 225px;
+        height: 400px;
+        display: inline-block;
+    }
+
+    .boton-2{
+        width: 225px;
+        display: inline;
+        height: 400px;
+        float: right;
+    }
+
+    .form-2{
+        margin-top: 10px;
+        width: 225px;
+        display: inline;
+    }
+
+    .search-users{
+        width: 500px;
+        height: 40px;
+        margin-top: 10px;
+        border: 1px solid lightgray;
+    }
+
+    .search-users h2{
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        margin-top: 5px;
+        margin-left: 5px;
+        display: inline;
+        float: left;
+
+    }
+
+    .search-users a{
+        text-decoration: none;
+        color: black;
+        font-size: 25px;
+        margin-left: 20px;
+    }
+
+    .search-users a:hover{
+        color: brown;
+    }
+
+    @media screen and (max-width: 497px) {
+
+        .search-users{
+            width: 100%;
+        }
+
+        .container-home{
+            width: 100%;
+        }
+
+        .content-votes{
+            width: 100%;
+        
+        }
+
+        .form-1{
+            margin-top: 10px;
+            
+        }
+
+        .boton-1{
+    
+            width: 50px;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        .boton-2{
+            width: 50px;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        .vote-div .img-f {
+            width: 200px;
+            border-radius: 5px;
+            background: none;
+            
+        }
+
+        .img-f img{
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .img-s {
+            width: 200px;
+            border-radius: 5px;
+            background: none;
+            
+            
+        }
+
+        .img-s img{
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .form-2{
+            width: 100px;
+            
+        }
+
+        .vote-div{
+            height: 590px;
+            margin-top: 10px;
+        }
+
+        .container-notification{
+            width: 100%;
+        }
+
+        .container-notification .notification-item{
+            padding-left: 5px;
+        }
+
+
+    }
+
+    @media only screen and (max-width: 402px) {
+        .vote-div .img-f {
+            width: 190px;
+        }
+
+        .form-1{
+            width: 190px;
+        }
+
+        .form-2{
+            width: 190px;
+        }
+
+        .img-s {
+            width: 190px;
+        }
+
+        .boton-1{
+            width: 25px;
+        }
+
+        .boton-2{
+            width: 25px;
+        }
+    }
+
+
+    @media only screen and (max-width: 382px){
+        .vote-div .img-f {
+            width: 170px;
+        }
+
+        .img-s {
+            width: 170px;
+        }
+
+        .form-1{
+            width: 170px;
+        }
+
+        .form-2{
+            width: 170px;
+        }
+    }
+
+
+</style>
+
+
+<script type="text/javascript">
+    const button =  document.getElementById('button-notf')
+
+    const contenedor = document.querySelector('.container-notification')
+
+    button.addEventListener('click', ()=>{
+        if(contenedor.style.display == 'none'){
+            contenedor.style.display = 'block';
+        }
+        else{
+            contenedor.style.display = 'none'
+
+        }
+    })
+
+
+</script>
+
+{% endblock %}

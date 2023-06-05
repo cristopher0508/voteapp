@@ -1,0 +1,79 @@
+{% extends 'partials/partial-home.html' %}
+
+{% block home %}
+
+<div class="container-form-search">
+    <div class="form-search">
+      <form action="{% url 'search' %}" method="get" class="form">
+        <input type="text" name="query" placeholder="Buscar">
+        <button>Buscar</button>
+      </form>  
+    </div>
+</div>
+
+<style>
+    .container-form-search{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .form-search{
+        width: 100%;
+        height: 700px;
+        
+    }
+
+    .form{
+        background: none;
+        
+
+    }
+
+
+    @media screen and (max-width: 497px) {
+
+        .container-form-search{
+            width: 100%;
+        }
+
+        .form-search{
+            width: 100%;
+            margin-top: 50px;
+            height: 900px;
+        }
+
+        .form{
+            width: 100%;
+            height: 100px;
+        }
+
+        .form input{
+            float: left;
+            width: 250px;
+            height: 40px;
+            font-size: 18px;
+            margin-top: 10px;
+            margin-left: 10px;
+            padding-left: 10px;
+            border-radius: 10px;
+        }
+
+        .form button{
+            width: 100px;
+            height: 40px;
+            float: right;
+            margin-top: 10px;
+            margin-right: 10px;
+            outline: none;
+            border: none;
+            color: white;
+            background: green;
+            border-radius: 10px;
+        }
+    }
+</style>
+
+
+
+{% endblock %}

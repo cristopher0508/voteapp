@@ -1,0 +1,107 @@
+{% extends 'partials/partial-home.html' %}
+
+{% block home %}
+<div class="vote-container">
+    <div class="container-form-vote">
+        <form method="post", action="/newvote/", enctype="multipart/form-data" class="form-vote">
+            {% csrf_token %}
+            <h1>Compara A Quien Quieras</h1>
+            <input type="text" placeholder="titulo" name="title" class="input-vote">
+            <textarea name="description" id="" cols="30" rows="10"></textarea>
+            <input type="file" name="first_image" id="file-1">
+            <input type="file" name="second_image" id="file-2">
+            <button type="submit">submit</button>
+            
+        </form>
+    </div>
+</div>
+
+<style>
+    .vote-container{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+
+    }
+
+    .container-form-vote{
+        margin-top: 70px;
+        width: 700px;
+        height: 600px;
+        border: 1px solid lightblue;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        background: white;
+        border-radius: 10px;
+    }
+
+
+    .form-vote{
+
+        width: 400px;
+        height: 450px;
+        margin-top: 20px;
+    }
+    .form-vote .input-vote{
+        width: 350px;
+        height: 30px;
+        padding-left: 20px;
+        outline: none;
+        font-size: 16px;
+        margin-top: 10px;
+        
+    }
+
+    .form-vote textarea{
+        padding-left: 10px;
+        padding-top: 10px;
+        font-size: 16px;
+        outline: #2CAFFE 3px  solid;
+        border-radius: 10px;
+        padding-right: 10px;
+        margin-top: 15px;
+        resize: none;
+        width: 350px;
+    }
+
+    .form-vote button{
+        width: 350px;
+        height: 30px;
+        background: #2CAFFE;
+        font-size: 17px;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        margin-top: 10px;
+    }
+
+    .form-vote h1{
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #file-1{
+        margin-top: 10px;
+    }
+
+    #file-2{
+        margin-top: 10px;
+    }
+
+    @media screen and (max-width: 497px) {
+
+        .vote-container{
+            width: 100%;
+            
+        }
+
+        .container-form-vote{
+            width: 100%;
+            margin-top: 60px;
+        }
+    }
+
+</style>
+
+{% endblock %}

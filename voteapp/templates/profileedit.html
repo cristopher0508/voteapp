@@ -1,0 +1,108 @@
+{% extends 'partials/partial-profileedit.html' %}
+
+{% block edit %}
+<style>
+    .container-profile-edit{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .form-profile{
+        width: 600px;
+        background: white;
+        border: 1px solid lightgray;
+        border-radius: 10px;
+        height: 400px;
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+
+
+    }
+
+
+    .h1-profile-edit{
+        display: block;
+        text-align: center;
+        margin-top: 15px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: black;
+    }
+
+    .form-profile form{
+        width: 400px;
+        padding-left: 20px;
+    }
+
+    .form-profile form .input-texto{
+        width: 350px;
+        height: 50px;
+        outline: #2CAFFE 2px solid;
+        border: #2CAFFE 2px solid;
+        border-radius: 10px;
+        font-size: 16px;
+        padding-left: 10px;
+        
+    }
+
+    .form-profile form textarea{
+        padding-left: 10px;
+        padding-top: 10px;
+        font-size: 16px;
+        outline: #2CAFFE 3px  solid;
+        border-radius: 10px;
+        padding-right: 10px;
+        margin-top: 15px;
+        resize: none;
+        width: 350px;
+        height: 150px;
+    }
+
+    .form-profile form button{
+        width: 350px;
+        height: 30px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        color: white;
+        font-size: 15px;
+        margin-top: 10px;
+        background: #06E758;
+    }
+
+
+    @media screen and (max-width: 425px) {
+        .container-profile-edit{
+            width: 100%;
+        }
+
+        .form-profile{
+            width: 100%;
+            padding-left: 0px;
+            height: 450px;
+        }
+    }
+
+
+
+   
+
+
+</style>
+<div class="container-profile-edit">
+    <div class="form-profile">
+        <h1 class="h1-profile-edit">Create Profile</h1>
+        <form action="/profile/edit/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="name" class="input-texto">
+            <textarea name="description" id=""  placeholder="Description"></textarea>
+            <input type="file" name="picture" id="">
+            <button type="submit"><h3>submit</h3></button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

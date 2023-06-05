@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% load static %}
+    {% block css%}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% endblock %}
+    <link rel="icon" href="{% static 'vote-app-photo.png' %}">
+    <link rel="stylesheet" href="{% static 'css/css/all.min.css' %}">
+    <script src="https://kit.fontawesome.com/1e15bfffba.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoteApp</title>
+</head>
+<body>
+    <header class="principal-header">
+        <nav class="principal-nav">
+            <h1 class="principal-h1">VoteApp</h1>
+            <ul>
+                <li><a href="/register"><div class="icon-li">
+                    <span class="fa-sharp fa-solid fa-user-plus"></span>
+                    <p>signup</p>
+                </div></a></li>
+                <li><a href="/"><div class="icon-li">
+                    <span class="fa-solid fa-door-open"></span>
+                    <p>Login</p>
+                </div></a></li>
+                <li><a href="">
+                    <div class="icon-li">
+                        <span class="fa-solid fa-address-card"></span>
+                        <p>about</p>
+                    </div>
+                </a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <style>
+
+        body{
+            width: 100%;
+            height: 100%;
+        }
+
+        .icon-li{
+            color: white;
+        }
+
+        @media  screen and (max-width: 594px) {
+
+           body{
+            width: 100%;
+           }
+
+            .principal-header{
+                width: 100%;
+                position: relative;
+            }
+
+            .principal-nav{
+                width: 100%;
+                position: relative;
+                
+            }
+            
+        }
+    </style>
+    {% block content %}
+
+    {% endblock %}
+</body>
+</html>

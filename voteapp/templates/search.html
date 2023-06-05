@@ -1,0 +1,69 @@
+{% extends 'partials/partial-home.html' %}
+
+{% block home %}
+<div class="search-container">
+    <div class="profile-list">
+        {% for profile in profile_list %}
+        <div class="div-user-profile">
+            <img src="{{profile.picture.url}}" alt="">
+            <a href="{% url 'profile' profile.user_id %}"><h3>{{profile.name}}</h3></a>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+<style>
+    .search-container{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .profile-list{
+        width:500px;
+        height: 500px;
+        border: 1px solid lightseagreen;
+        border-radius: 10px;
+        margin-top: 70px;
+        overflow-x: auto;
+    }
+
+    .div-user-profile{
+        width: 100%;
+        height: 60px;
+        margin-top: 10px;
+    }
+
+    .div-user-profile img{
+        width: 30px;
+        height: 30px;
+        float: left;
+        margin-left: 10px;
+        margin-top: 10px;
+        border-radius: 100%;
+
+    }
+
+    .div-user-profile h3{
+        display: inline;
+        margin-top: 10px;
+        margin-left: 10px;
+        float: left;
+    }
+
+
+    @media screen and (max-width: 497px) {
+        .search-container{
+            width: 100%;
+        }
+
+        .profile-list{
+            width: 100%;
+            margin-top: 60px;
+        }
+
+
+    }
+</style>
+{% endblock %}

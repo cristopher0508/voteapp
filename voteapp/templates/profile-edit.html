@@ -1,0 +1,108 @@
+{% extends 'partials/partial-home.html' %}
+
+{% block home %}
+
+<div class="container-profile-edit">
+    <div class="form-profile">
+        <h1 class="h1-profile-edit">Edit Profile</h1>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button>Save</button>
+        </form>
+    </div>
+</div>
+
+
+<style>
+    .container-profile-edit{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .form-profile{
+        width: 600px;
+        background: white;
+        border: 1px solid lightgray;
+        border-radius: 10px;
+        height: 450px;
+        max-height: 500px;
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+
+
+    }
+
+
+    .h1-profile-edit{
+        display: block;
+        text-align: center;
+        margin-top: 15px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: black;
+        width: 100%;
+    }
+
+    form{
+        width: 400px;
+    }
+
+    form .name{
+        width: 350px;
+        height: 50px;
+        outline: #2CAFFE 2px solid;
+        border: #2CAFFE 2px solid;
+        border-radius: 10px;
+        font-size: 16px;
+        padding-left: 10px;
+    }
+
+    form textarea{
+        padding-left: 10px;
+        padding-top: 10px;
+        font-size: 16px;
+        outline: #2CAFFE 3px  solid;
+        border-radius: 10px;
+        padding-right: 10px;
+        margin-top: 15px;
+        resize: none;
+        width: 350px;
+    }
+
+    form button{
+        width: 350px;
+        height: 30px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        color: white;
+        font-size: 15px;
+        margin-top: 10px;
+        background: #06E758;
+    }
+
+    form label{
+        display: none;
+    }
+
+    input[type=file]{
+        margin-top: 10px;
+    }
+
+    @media screen and (max-width: 497px) {
+        .container-profile-edit{
+            width: 100%;
+        }
+
+        .form-profile{
+            width: 100%;
+            margin-top: 60px;
+        }
+    }
+</style>
+
+{% endblock %}

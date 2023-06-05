@@ -1,0 +1,484 @@
+{% extends 'partials/partial-home.html' %}
+
+{% block home %}
+
+<div class="detail-container">
+    <div class="vote-div">
+        <div class="div-img-name">
+            <img src="{{vote.author.picture.url}}" alt="">
+            <h3>{{vote.author.name}}</h3>
+            {% if request.user.profile == vote.author %}
+            <ul class="ul-edit-delete">
+                <form action="{% url 'delete-post' vote.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="delete">Delete</button></form>
+            </ul>
+            {% endif %}
+        </div>
+        <h2>{{vote.title}}</h2>
+        <form action="{% url 'add-vote' vote.id %}" method="post" class="form-1">
+            {% csrf_token %}
+            <div class="boton-1">
+            <label>
+            <input type="hidden" name="img" value="{{request.path}}">
+            <button type="submit" class="img-f"><img src="{{vote.first_image.url}}" alt=""></button>
+            </label>
+            <strong class="strong-1" onclick="openLikes()">{{vote.vote_image_first.all.count}}</strong>
+            </div>
+            </form>
+
+
+            <form action="{% url 'add-vote-two' vote.id %}" method="post" class="form-2">
+                {% csrf_token %}
+                <div class="boton-2">
+                <label>  
+                <input type="hidden" name="imgs" value="{{request.path}}"> 
+               <button type="submit" class="img-s"><img src="{{vote.second_image.url}}" alt=""></button>
+                </label>
+                <strong class="strong-2" onclick="contentOpen()">{{vote.vote_image_second.all.count}}</strong>
+                </div>
+            </form>
+
+            <div class="likes-users" id="likes-users">
+                <div class="title-likes-users" >
+                    <h3>Mira a Quien le gustas</h3>
+                    <button class="button-x" onclick="cerrar()"><span class="fa-solid fa-x quit"></span></button>
+                </div>
+                {% for user in vote.vote_image_first.all %}
+                <img src="{{user.picture.url}}" alt="" width="25px" height="25px" style="border-radius: 100%; float: left; margin-top: 10px">
+                <a href="{% url 'profile' user.user_id %}" style="text-decoration: none; color: black;
+                margin-top: 10px;
+                
+                "><h3 style="float: left; margin-left: 10px; margin-top: 10px">{{user.name}}</h3></a>
+                <br>
+                <br>
+                {% endfor %}
+                </div>
+
+                <div class="likes-users-two" id="content-second">
+                    <div class="title-likes-users" >
+                        <h3>Mira a Quien le gustas</h3>
+                        <button class="button-x-second" onclick="Close()"><span class="fa-solid fa-x quit"></span></button>
+                    </div>
+                    {% for user in vote.vote_image_second.all %}
+                    <img src="{{user.picture.url}}" alt="" width="25px" height="25px" style="border-radius: 100%; float: left; margin-top: 10px">
+                    <a href="{% url 'profile' user.user_id %}" style="text-decoration: none; color: black;
+                    margin-top: 10px;
+                    
+                    "><h3 style="float: left; margin-left: 10px; margin-top: 10px">{{user.name}}</h3></a>
+                    <br>
+                    <br>
+                    {% endfor %}
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="description">
+                    {% if vote.description %}
+                    <p style="margin-top: 10px; margin-left: 20px">{{vote.description}}</p>
+                    {% endif %}
+                </div>
+    </div>
+    
+</div>
+
+
+<style>
+    .detail-container{
+        display: flex;
+        justify-content: center;
+    }
+
+    .vote-div{
+        width: 500px;
+        max-height: 700px;
+        height: 580px;
+        border: 1px solid lightgray;
+        margin-top: 70px;
+    }
+
+    .div-img-name{
+        height: 40px;
+        border-bottom: 1px solid lightgray;
+        width: 100%;
+    }
+
+    .div-img-name ul{
+        float: right;
+        margin-top: 10px;
+        margin-right: 10px;
+
+    }
+
+    .ul-edit-delete button{
+        width: 60px;
+        height: 20px;
+
+    }
+
+    .ul-edit-delete .edit{
+        color: white;
+        background: green;
+        border: none;
+        border-radius: 10px;
+    }
+
+    .ul-edit-delete form{
+        width: 60px;
+        height: 20px;
+        display: inline-block;
+    }
+
+    .ul-edit-delete .delete{
+        color: white;
+        background: red;
+        border: none;
+        border-radius: 10px;
+    }
+
+    
+
+    .div-img-name img{
+        float: left;
+        margin-top: 5px;
+        margin-left: 5px;
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+    }
+
+    .div-img-name h3{
+        display: inline;
+        float: left;
+        margin-top: 5px;
+        margin-left: 5px;
+    }
+
+    .vote-div h2{
+        text-align: center;
+        font-family: monospace;
+        margin-top: 5px;
+
+    }
+
+    .vote-div .img-f{
+        width: 225px;
+        height: 400px;
+        display: inline;
+        float: left;
+    }
+
+    .img-f img {
+        width: 100%;
+        height: 100%;
+        display: inline;
+    }
+
+
+    .img-s{
+        width: 225px;
+        height: 400px;
+        display: inline;
+        float: right;
+    }
+
+    .img-s img{
+        width: 100%;
+        height: 100%;
+        display: inline;
+    }
+
+    .form-1{
+        margin-top: 10px;
+        width: 225px;
+        display: inline;
+        
+    }
+
+    .strong-1{
+        float: left;
+        font-size: 25px;
+        margin-left: 10px;
+        margin-top: 10px;
+        
+        
+    }
+
+    .strong-1:hover{
+        cursor: pointer;
+        color: aquamarine;
+    }
+
+    .strong-2{
+        float: right;
+        font-size: 25px;
+        margin-top: 10px;
+        margin-right: 10px;
+    }
+
+    .strong-2:hover{
+        cursor: pointer;
+        color: aquamarine;
+    }
+
+    .boton-1{
+        width: 225px;
+        height: 400px;
+        display: inline-block;
+    }
+
+    .boton-2{
+        width: 225px;
+        display: inline;
+        height: 400px;
+        float: right;
+    }
+
+    .form-2{
+        margin-top: 10px;
+        width: 225px;
+        display: inline;
+    }
+
+    .likes-users{
+        width: 100%;
+        height: 200px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        background: white;
+        border: 1px solid gray;
+        z-index: 100;
+        position: relative;
+        top: -150px;
+        display: none;
+        overflow-y: scroll;
+        overflow-x: hidden;
+
+    }
+
+    .likes-users-two{
+        width: 100%;
+        height: 200px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        background: white;
+        border: 1px solid gray;
+        z-index: 100;
+        position: relative;
+        top: -150px;
+        display: none;
+        overflow-y: scroll;
+        overflow-x: hidden;
+
+    }
+
+    .boton-quitar{
+        border: none;
+        
+    }
+
+    .title-likes-users{
+        height: 40px;
+        border-bottom: 1px solid lightgray;
+        
+        
+    }
+
+    .title-likes-users h3{
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        display: inline;
+        margin-top: 10px;
+        margin-left: 20px;
+
+    }
+
+    .button-x{
+        float: right;
+        margin-top: 10px;
+        margin-right: 10px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .button-x-second{
+        float: right;
+        margin-top: 10px;
+        margin-right: 10px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .quit{
+        font-size: 18px;
+    }
+
+    @media only screen and (max-width: 997px){
+        .vote-div{
+            margin-top: 70px;
+        }
+    }
+
+
+
+    @media screen and (max-width: 497px) {
+
+        .detail-container{
+            width: 100%;
+        }
+
+        .vote-div{
+            width: 100%;
+            height: 600px;
+            margin-top: 70px;
+        }
+
+        .form-1{
+            margin-top: 10px;
+            
+        }
+
+        .boton-1{
+    
+            width: 50px;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        .boton-2{
+            width: 50px;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        .vote-div .img-f {
+            width: 200px;
+            border-radius: 5px;
+            background: none;
+            
+        }
+
+        .img-f img{
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .img-s {
+            width: 200px;
+            border-radius: 5px;
+            background: none;
+            
+            
+        }
+
+        .img-s img{
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .form-2{
+            width: 100px;
+            
+        }
+
+
+    }
+
+
+
+    @media only screen and (max-width: 402px) {
+        .vote-div .img-f {
+            width: 190px;
+        }
+
+        .form-1{
+            width: 190px;
+        }
+
+        .form-2{
+            width: 190px;
+        }
+
+        .img-s {
+            width: 190px;
+        }
+
+        .boton-1{
+            width: 25px;
+        }
+
+        .boton-2{
+            width: 25px;
+        }
+    }
+
+
+    @media only screen and (max-width: 382px){
+        .vote-div .img-f {
+            width: 170px;
+        }
+
+        .img-s {
+            width: 170px;
+        }
+
+        .form-1{
+            width: 170px;
+        }
+
+        .form-2{
+            width: 170px;
+        }
+    }
+
+</style>
+
+<script type="text/javascript">
+    function cerrar(){
+        container_likes = document.getElementById('likes-users')
+    
+        if (container_likes.style.display == 'block') {
+            container_likes.style.display = 'none'
+            
+        }    
+    }
+
+    function openLikes(){
+        container_likes = document.getElementById('likes-users')
+    
+        if(container_likes.style.display == "none"){
+            container_likes.style.display = 'block'
+        }
+        else{
+            container_likes.style.display ='none'
+        }
+    }
+
+
+strong = document.querySelector('.strong-2')
+container = document.querySelector('.likes-users-two')
+
+function contentOpen(){
+    container = document.querySelector('.likes-users-two')
+
+    if(container.style.display == "none"){
+        container.style.display = 'block'
+
+    }
+    else{
+        container.style.display = 'none'
+    }
+
+}
+
+function Close(){
+    container = document.querySelector('.likes-users-two')
+    if(container.style.display == 'block') {
+        container.style.display = 'none'
+    }
+}
+
+
+    
+</script>
+
+{% endblock %}

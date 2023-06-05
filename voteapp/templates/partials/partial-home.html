@@ -1,0 +1,311 @@
+
+{% load custom_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/css/all.min.css' %}">
+    <script src="https://kit.fontawesome.com/1e15bfffba.js" crossorigin="anonymous"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.6.4.js"
+  integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+  crossorigin="anonymous"></script>
+  
+    <title>voteApp</title>
+</head>
+<body>
+    <script src="{% static 'js/main.js' %}"></script>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .header-home{
+            width: 100%;
+            height: 50px;
+            background: #2CAFFE;
+            border-bottom: 2px solid lightgray;
+            position: fixed;
+            z-index: 200;
+            
+
+        }
+
+        .nav-home{
+            width: 100%;
+        }
+
+         .h1-vote{
+            display: inline;
+            float: left;
+            margin-top: 10px;
+            margin-left: 10px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+        }
+
+        .nav-home ul{
+            float: right;
+            display: inline;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+
+        .nav-home ul li{
+            display: inline;
+            list-style: none;
+            margin-right: 40px;
+        }
+
+        .nav-home ul li a h3{
+            display: inline;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+            
+        }
+
+        .nav-home ul li a{
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+        }
+
+        .form-buscar{
+            display: inline;
+            width: 320px;
+            height: 50px;
+            max-height: 50px;
+            
+            float: left;
+            margin-left: 30px;
+
+        }
+
+        .form-buscar input{
+            display: inline;
+            width: 300px;
+            height: 30px;
+            border-radius: 10px;
+            padding-left: 20px;
+            border: none;
+            float: left;
+            margin-top: 15px;
+            outline: none;
+        }
+
+        .form-buscar button {
+            width: 150px;
+            height: 25px;
+            float: right;
+            margin-top: 15px;
+            outline: none;
+            
+        }
+
+        .ul-home{
+            display: none;
+        }
+
+        .menu{
+            display: none;
+        }
+
+        .boton{
+            display: none;
+        }
+
+        .nav-home .home-ul-responsive{
+            display: none;
+        }
+
+        @media only screen and (max-width: 997px) {
+            .header-home{
+                position: fixed;
+                top: 0;
+                z-index: 200;
+            }
+            
+            .menu{
+                float: right;
+                display: inline;
+                color: white;
+                font-size: 20px;
+            }
+
+            .boton{
+                float: right;
+                margin-top: 15px;
+                margin-right: 20px;
+                background: none;
+                border: none;
+                display: inline;
+            }
+
+            .ul-home{
+                margin-right: 25px;
+            }
+
+            .nav-home .home-ul-responsive{
+                display: none;
+                float: right;
+                background: #2CAFFE;
+                position: relative;
+                margin-right: 0;
+                width: 300px;
+                margin-top: 0;
+                z-index: 120;
+                
+            }
+
+            .nav-home .home-ul{
+                display: none;
+                
+            }
+
+            .nav-home .home-ul-responsive li{
+                display: block;
+                border-bottom: 1px solid white;
+                padding-bottom: 15px;
+                padding-left: 5px;
+                margin-top: 10px;
+            }
+
+            .nav-home .home-ul-responsive li h3{
+                margin-left: 10px;
+            }
+        }
+
+        @media only screen and (max-width: 714px){
+            .form-buscar button {
+                width: 50px;
+                float: left;
+                margin-left: 20px;
+                display: none;
+
+            }
+
+            .boton {
+                display: block;
+            }
+        }
+
+        @media screen and (max-width: 667px) {
+
+
+           .boton{
+            display: none;
+           }
+
+            body {
+                width: 100%;
+            }
+            .header-home{
+                width: 100%;
+                position: fixed;
+                height: 50px;
+                
+            }
+
+            .nav-home{
+                position: fixed;
+                top: 100;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                border-top: 1px solid gray;
+                height: 40px;
+                background: #2CAFFE;
+                
+            }
+
+            .nav-home.home-ul-responsive{
+                display: none;
+            }
+
+            .nav-home .home-ul{
+                display: flex;
+                justify-content: space-between;
+                
+                float: none;
+                
+                width: 100%;
+                
+            }
+
+            .nav-home .home-ul li{
+                margin-left: 20px;
+                font-size: 20px;
+                
+               
+            }
+
+            .form-buscar{
+                display: none;
+            }
+
+            .ul-home{
+                display: inline;
+                list-style: none;
+                font-family: Arial, Helvetica, sans-serif;
+                float: right;
+                margin-right: 10px;
+                margin-top: 15px;
+                color: white;
+            }
+
+            .ul-home li a{
+                text-decoration: none;
+                color: white;
+                font-size: 18px;
+            }
+
+            
+        }
+
+
+    </style>
+
+    
+    {% if user.is_authenticated %}
+    <header class="header-home">
+        <a href="/home"><h1 class="h1-vote">voteApp</h1></a>
+        <form action="{% url 'search' %}" method="get" class="form-buscar">
+            <input type="text" name="query" placeholder="Buscar">
+        </form>
+        <button class="boton" id="boton" value="boton" onclick="mostrar()"><span class="fa-solid fa-bars menu"></span></button>
+        <ul class="ul-home">
+            <li><a href="{% url 'search-responsive' %}"><span class="fa-solid fa-magnifying-glass"></span></a></li>
+        </ul>
+        <nav class="nav-home">
+            <ul class="home-ul">
+                <li><a href="/home"><span class="fa-solid fa-house"></span></a></li>
+                <li><a href="{% url 'profile' user.profile.user_id %}"><span class="fa-solid fa-user"></span></a></li>
+                <li><a href="/newvote"><span class="fa-sharp fa-solid fa-person-booth"></span></a></li>
+                <li><a href="/logout"><span class="fa-solid fa-right-from-bracket"></span></a></li>
+            </ul>
+            
+            <br>
+            <br>
+            <ul class="home-ul-responsive">
+                <li><a href="/home"><span class="fa-solid fa-house"></span><h3>Home</h3></a></li>
+                <li><a href="{% url 'profile' user.profile.user_id %}"><span class="fa-solid fa-user"></span><h3>profile</h3></a></li>
+                <li><a href="/newvote"><span class="fa-sharp fa-solid fa-person-booth"></span><h3>newVote</h3></a></li>
+                <li><a href="/logout"><span class="fa-solid fa-right-from-bracket"></span><h3>Logout</h3></a></li>
+            </ul>
+            
+        </nav>
+        
+    </header>
+    
+
+    {% block home %}
+
+    {% endblock %}
+
+    {% endif %}
+</body>
+</html>

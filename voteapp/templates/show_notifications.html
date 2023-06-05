@@ -1,0 +1,127 @@
+
+
+
+
+<div class="dropdown">
+    <button type="button" class="button-notification">{{notifications.count}}</button>
+    <div class="notification-container">
+    {% for notification in notifications %}
+
+
+    {% if notification.notification_type == 1 %}
+    <a href="{% url 'follow-notification' notification.id notification.from_user_id %}">
+       <div class="notification-item">
+
+           <h4>{{notification.from_user.name}}</h4>
+           <p>Te sigue ahora</p>
+       </div>
+       </a>
+   {% endif %}
+
+
+   {% if notification.notification_type == 2 %}
+   <a href="{% url 'vote-notification' notification.id notification.vote_id %}">
+      <div class="notification-item">
+
+          <h4>{{notification.from_user.name}}</h4>
+          <p>Ha hecho un voto</p>
+      </div>
+      </a>
+  {% endif %}
+
+
+  {% if notification.notification_type == 3 %}
+  <a href="{% url 'vote-notification' notification.id notification.vote_id %}">
+     <div class="notification-item">
+
+         <h4>{{notification.from_user.name}}</h4>
+         <p>Ha hecho un voto</p>
+     </div>
+     </a>
+ {% endif %}
+
+
+    {% endfor %}
+
+    </div>
+</div>
+
+<style>
+
+    .button-notification{
+        display: inline;
+        float: right;
+        margin-top: 10px;
+        margin-left: 30px;
+    }
+
+    .dropdown{
+        margin-top: 5px;
+        margin-left: 20px;
+        margin-right: 10px;
+        
+        float: right;
+        
+        
+        
+        
+    }
+
+    .notification-container{
+        margin-top: 10px;
+        margin-right: 20px;
+        border: 1px solid lightseagreen;
+        width: 400px;
+        height: 400px;
+        background: white;
+        position: fixed;
+        display: none;
+        float: left;
+        
+        
+    }
+
+    .notification-container a{
+        color: black;
+        text-decoration: none;
+
+    }
+
+    .notification-item{
+        width: 100%;
+        height: 40px;
+       
+        margin-top: 20px;
+        cursor: pointer;
+    }
+
+    .notification-item img{
+        float: left;
+    }
+
+    .notification-item h3{
+        display: inline;
+        margin-left: 10px;
+    }
+
+</style>
+
+<script text="text/javascript">
+
+    container = document.querySelector('.notification-container')
+
+    boton = document.querySelector('.button-notification')
+
+    
+
+    boton.addEventListener('click', ()=>{
+        if(container.style.display == 'none'){
+            container.style.display = 'block'
+        }
+        else{
+            container.style.display = 'none'
+        }
+    })
+
+
+</script>

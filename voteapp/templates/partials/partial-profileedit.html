@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <title>VoteApp</title>
+</head>
+
+<style>
+    .header-profile-edit{
+        width: 100%;
+        height: 50px;
+        background: #2CAFFE;
+        border-bottom: 1px solid lightgray;
+        box-shadow: black 1px 1px 4px 2px ;
+    }
+
+    .nav-profileedit{
+        width: 100%;
+    }
+    .h1-profile-edit{
+        display: inline;
+        float: left;
+        margin-top: 10px;
+        margin-left: 10px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+    }
+
+    .nav-profileedit ul{
+        float: right;
+        margin-right: 20px;
+        margin-top: 10px;
+    }
+
+    .nav-profileedit ul li{
+        list-style: none;
+    }
+
+    .nav-profileedit ul li a{
+        text-decoration: none;
+        font-family: Arial, Helvetica, sans-serif;
+        color: black;
+    }
+
+    @media screen and (max-width: 425px) {
+        .header-profile-edit{
+            width: 100%;
+            
+        }
+
+        .nav-profileedit{
+            width: 100%;
+        }
+
+        
+    }
+
+
+</style>
+<body>
+    {% if user.is_authenticated %}
+    <header class="header-profile-edit">
+        <nav class="nav-profileedit">
+            <h1 class="h1-profile-edit">VoteApp</h1>
+            <ul>
+                <li><a href="/logout"><h3>Logout</h3></a></li>
+            </ul>
+        </nav>
+    </header>
+    {% block edit %}
+
+    {% endblock %}
+
+    {% endif %}
+</body>
+</html>

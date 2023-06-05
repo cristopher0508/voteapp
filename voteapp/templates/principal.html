@@ -1,0 +1,160 @@
+
+{% extends 'partials/partial-principal.html' %}
+
+{% block content %}
+
+<div class="container-principal">
+    <h2 class="h2-welcome">Descubre que tan Atractivo Eres</h2>
+    <div class="login-form">
+        <h2 class="h2-login">Login</h2>
+        <div class="div-form-principal">
+        <form action="/" method="post">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username">
+            <input type="password" name="password" placeholder="password">
+            <button type="submit">Entrar</button>
+        </form>
+        </div>
+    </div>
+</div>
+
+<style>
+
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .container-principal{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .h2-welcome{
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        white-space: nowrap;
+        border-right: 5px solid #2CAFFE;
+        width: 100%;
+        display: inline-block;
+        text-align: center;
+        overflow: hidden;
+        animation: 
+            typing 3s steps(15),
+            cursor .4s step-end alternate;
+
+    }
+
+    @keyframes cursor {
+        50% {border-color: transparent;}
+    }
+
+    @keyframes typing {
+        from {width: 0;}
+    }
+
+
+    .login-form{
+        width: 600px;
+        height: 300px;
+        border: 1px solid lightgray;
+        border-radius: 10px;
+        background: #2CAFFE;
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        
+    }
+
+    .login-form form{
+        width: 550px;
+        height: 200px;
+        padding-left: 90px;
+    }
+
+    .login-form form input{
+        width: 350px;
+        height: 40px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border: none;
+        font-size: 16px;
+        outline: none;
+        border-radius: 20px;
+        margin-top: 25px;
+        margin-left: 10px;
+    }
+
+    .login-form form button{
+        width: 350px;
+        height: 40px;
+        border: none;
+        border-radius: 10px;
+        background: #05E349 ;
+        color: white;
+        margin-top: 20px;
+        margin-left: 10px;
+        font-size: 15px;
+        }
+
+    .h2-login{
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+
+
+    }
+    .div-form-principal{
+        width: 100%;
+    }
+
+    @media screen and (max-width: 662px) {
+
+        body{
+            width: 100%;
+        }
+
+        .container-principal {
+            width: 100%;
+            position: relative;
+
+            
+        }
+
+        .login-form{
+            width: 100%;
+            display: block;
+        }
+
+        .login-form form{
+            width: 100%;
+            margin-top: 20px;
+            padding-right: 0;
+            padding-left: 0;
+
+        }
+
+        .login-form form input{
+            width: 100%;
+            max-width: 90%;
+        }
+
+        .login-form form button{
+            width: 90%;
+        }
+
+        .div-form-principal{
+            width: 100%;
+            position: relative;
+            max-width: 100%;
+        }
+        
+    }
+
+
+</style>
+{% endblock %}
